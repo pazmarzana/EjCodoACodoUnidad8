@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./control.js"></script>
+    <title>EjUnidad8</title>
+    <style>
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 2em;
+        }
+        label{
+            padding-right: 1em;
+        }
+        input{
+            padding: 0.3em;
+        }
+        h2{
+            margin: 3em;
+        }
+    </style>
+</head>
+<body>
+    <div class="row">
+        <div class="col">
+            <h2>Ingreso al Sistema</h2>
+            <form action="MuestroDatos.php" method="POST" id="form">
+                <div class="row">
+                    <label for="usuario">Usuario:</label>
+                    <input type="email" name="usuario" id="usuario" placeholder="name@name">
+                </div>
+                <div class="row">
+                    <label for="clave">Clave:</label>
+                    <input type="password" name="clave" id="clave">
+                </div>
+                <div class="row">
+                    <button type="submit" id="btnSubmit" >Ingresar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+    <script>
+
+
+        function validarDatos(form){
+
+            if (validarUsuario(form))
+            {
+                if (validarClave(form)){
+                    form.submit();
+                }
+            }
+        }
+
+        function validarUsuario(form) {
+        const campo = form.usuario;
+            if (campo.value == "" ){
+                alert("Debe ingresar un usuario");
+                campo.focus();
+                return(false);
+            }else{
+                if (campo.value.indexOf('@',0) == -1){
+                    alert("El usuario debe ser una direccion de email");
+                    campo.focus();
+                    return(false);
+                }else{
+                    return(true);
+                }
+            }
+        }
+
+        function validarClave(form) {
+            const campo = form.clave;
+            if (campo.value == "" ){
+                alert("Debe ingresar una clave");
+                campo.focus();
+                return(false);
+            }else{
+                return(true);
+            }
+        }
+
+        document.getElementById("btnSubmit").addEventListener("click", function(event){
+            event.preventDefault();
+            const form=document.getElementById("form");
+            if(validarDatos(form)){
+                form.submit();
+            };
+        });
+    </script>
+
+</body>
+</html>
